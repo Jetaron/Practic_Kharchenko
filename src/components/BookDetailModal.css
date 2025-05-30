@@ -1,102 +1,119 @@
-/* src/components/BookDetailModal.css */
-
 .modal-overlay {
-  position: fixed; /* Фіксоване позиціонування відносно вікна браузера */
+  position: fixed; /* Фіксоване положення відносно вікна браузера */
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.6); /* Напівпрозорий чорний фон */
   display: flex;
-  align-items: center; /* Вертикальне центрування */
-  justify-content: center; /* Горизонтальне центрування */
-  z-index: 1000; /* Поверх інших елементів */
-  padding: 20px; /* Відступи, щоб контент не прилипав до країв екрану на мобільних */
+  align-items: center; /* Вирівнювання по центру вертикалі */
+  justify-content: center; /* Вирівнювання по центру горизонталі */
+  z-index: 1000; /* Має бути поверх іншого контенту */
+  padding: 20px; /* Відступи, щоб контент не прилягав до країв на малих екранах */
 }
 
 .modal-content {
-  background-color: rgb(0, 0, 0);
-  padding: 25px;
-  border-radius: 8px;
+  background-color: #fff;
+  padding: 25px 30px;
+  border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   position: relative; /* Для позиціонування кнопки закриття */
-  max-width: 800px; /* Максимальна ширина модального вікна */
-  width: 90%; /* Ширина відносно батьківського елемента (overlay) */
-  max-height: 90vh; /* Максимальна висота, щоб вміщувалось на екрані */
-  overflow-y: auto; /* Додає скрол, якщо контент не вміщується по висоті */
+  max-width: 700px; /* Максимальна ширина модального вікна */
+  width: 100%; /* Займає доступну ширину, але не більше max-width */
+  max-height: 90vh; /* Максимальна висота, щоб вміщалося на екрані */
+  overflow-y: auto; /* Додає скрол, якщо контент не вміщається по висоті */
+  animation: fadeInModal 0.3s ease-out;
 }
+
+@keyframes fadeInModal {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 
 .modal-close-button {
   position: absolute;
-  top: 10px;
-  right: 15px;
+  top: 15px;
+  right: 20px;
   background: none;
   border: none;
-  font-size: 2rem; /* Великий хрестик */
-  font-weight: bold;
+  font-size: 2rem; /* Розмір "хрестика" */
   color: #888;
   cursor: pointer;
-  line-height: 1; /* Для кращого вертикального вирівнювання хрестика */
+  line-height: 1;
+  padding: 0;
 }
 
 .modal-close-button:hover {
-  color: #722828;
+  color: #9c2626;
+}
+
+.modal-content h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #007bff;
+  font-size: 1.8rem;
+  text-align: center;
 }
 
 .modal-body {
-  display: flex; /* Для розташування обкладинки та інформації поруч */
-  gap: 20px; /* Відстань між обкладинкою та текстом */
-}
-
-.modal-cover-container {
-  flex-shrink: 0; /* Щоб контейнер обкладинки не стискався */
+  display: flex;
+  gap: 25px; /* Відстань між обкладинкою та інформацією */
 }
 
 .modal-book-cover {
-  width: 200px; /* Розмір обкладинки в модальному вікні */
+  flex-shrink: 0; /* Щоб обкладинка не стискалася */
+  width: 180px;
   height: auto; /* Висота автоматична для збереження пропорцій */
-  max-height: 300px; /* Обмеження максимальної висоти */
-  object-fit: contain; /* Щоб вся обкладинка була видна */
-  border-radius: 4px;
-  border: 1px solid #eee;
+  max-height: 270px; /* Обмеження максимальної висоти обкладинки */
+  object-fit: contain; /* Зберігає пропорції, вміщуючи все зображення */
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
-.modal-info-container {
-  flex-grow: 1; /* Щоб інформаційний блок займав решту місця */
+.modal-book-info {
+  flex-grow: 1; /* Займає решту простору */
+  text-align: left;
 }
 
-.modal-info-container h2 {
-  margin-top: 0;
-  color: #ffffff;
-}
-
-.modal-info-container p {
+.modal-book-info p {
   margin-bottom: 10px;
   line-height: 1.6;
+  font-size: 0.95rem;
 }
 
-.modal-info-container .book-description {
-  font-size: 0.95em;
-  color: #ffffff;
-  white-space: pre-wrap; /* Зберігає переноси рядків та пробіли в описі */
+.modal-book-info p strong {
+  color: #333;
 }
 
-/* Адаптивність для маленьких екранів */
-@media (max-width: 600px) {
+.modal-book-description {
+  font-size: 0.9rem;
+  color: #555;
+  white-space: pre-wrap; /* Зберігає переноси рядків та пробіли з тексту опису */
+}
+
+
+/* Адаптивність для модального вікна */
+@media (max-width: 768px) {
+  .modal-content {
+    max-width: 95%;
+    padding: 20px;
+  }
   .modal-body {
-    flex-direction: column; /* Обкладинка над текстом */
+    flex-direction: column; /* Обкладинка над текстом на малих екранах */
     align-items: center; /* Центруємо обкладинку */
-    text-align: center; /* Центруємо текст */
   }
-
   .modal-book-cover {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    width: 150px; /* Трохи менша обкладинка */
   }
-
-  .modal-info-container p {
-    text-align: left; /* Опис краще читати вирівняним по лівому краю */
-  }
-  .modal-info-container .book-description {
-    text-align: left;
+  .modal-content h2 {
+    font-size: 1.5rem;
   }
 }

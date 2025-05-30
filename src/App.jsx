@@ -1,80 +1,102 @@
 // src/App.jsx
 
-import { useState, useEffect } from 'react'; // Додали useEffect
+import { useState, useEffect } from 'react';
 import booksData from './data/booksData';
 import BookList from './components/BookList';
-import BookDetailModal from './components/BookDetailModal';
-import FilterBar from './components/FilterBar'; // Імпортуємо FilterBar
+import FilterBar from './components/FilterBar';
+import BookDetailModal from './components/BookDetailModal'; // Імпортуємо наш новий компонент
 import './App.css';
 
 function App() {
-  // `allBooks` - це наш повний, незмінний список книг з booksData
-  const [allBooks] = useState(booksData); 
-  // `displayedBooks` - це книги, які будуть відображені (після фільтрації)
-  const [displayedBooks, setDisplayedBooks] = useState(allBooks);
-  
-  const [selectedBook, setSelectedBook] = useState(null);
-  
-  // Стан для поточних активних фільтрів
-  const [activeFilters, setActiveFilters] = useState({
-    genre: '', // Порожній рядок означає "Всі жанри"
-    author: '' // Порожній рядок означає "Всі автори"
-  });
+  const [allBooks] = useState(booksData);
+  const [displayedBooks, setDisplayedBooks] = useState(booksData);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedGenre, setSelectedGenre] = useState('');
 
-  // Функція для обробки змін фільтрів з FilterBar
-  const handleFilterChange = (newFilters) => {
-    setActiveFilters(newFilters);
+  // Стан для вибраної книги (об'єкт книги)
+  const [selectedBookForDetails, setSelectedBookForDetails] = useState(null);
+
+  const availableGenres = [...new Set(allBooks.map(book => book.genre))].sort();
+
+  const handleSearchChange = (term) => {
+    setSearchTerm(term);
   };
 
-  // Використовуємо useEffect для застосування фільтрів, коли змінюється 
-  // allBooks (не зміниться в нашому випадку, але це хороша практика) або activeFilters
+  const handleGenreChange = (genre) => {
+    setSelectedGenre(genre);
+  };
+
+  const handleShowBookDetails = (bookObject) => {
+    console.log("App.jsx: Показати деталі для книги:", bookObject.title);
+    setSelectedBookForDetails(bookObject);
+  };
+
+  const handleCloseBookDetails = () => {
+    console.log("App.jsx: Закрити деталі книги");
+    setSelectedBookForDetails(null);
+  };
+
   useEffect(() => {
-    let filtered = [...allBooks]; // Починаємо з повного списку
-
-    // Фільтруємо за жанром, якщо він обраний
-    if (activeFilters.genre) {
-      filtered = filtered.filter(book => book.genre === activeFilters.genre);
+    console.log("App.jsx: useEffect (фільтрація) спрацював. Залежності:", { searchTerm, selectedGenre });
+    let booksResult = allBooks;
+    if (searchTerm.trim()) {
+      const lowercasedTerm = searchTerm.toLowerCase().trim();
+      booksResult = booksResult.filter(book =>
+        book.title.toLowerCase().includes(lowercasedTerm) ||
+        book.author.toLowerCase().includes(lowercasedTerm)
+      );
     }
-
-    // Фільтруємо за автором, якщо він обраний
-    if (activeFilters.author) {
-      filtered = filtered.filter(book => book.author === activeFilters.author);
+    if (selectedGenre) {
+      booksResult = booksResult.filter(book => book.genre === selectedGenre);
     }
+    setDisplayedBooks(booksResult);
+  }, [searchTerm, selectedGenre, allBooks]);
 
-    setDisplayedBooks(filtered); // Оновлюємо список відображуваних книг
-  }, [allBooks, activeFilters]); // Залежності useEffect
+  useEffect(() => {
+    if (selectedBookForDetails) {
+      console.log("App.jsx: useEffect (скрол) - модалка відкрита, додаємо клас");
+      document.body.classList.add('modal-open');
+    } else {
+      console.log("App.jsx: useEffect (скрол) - модалка закрита, видаляємо клас");
+      document.body.classList.remove('modal-open');
+    }
+    return () => {
+      // Ця функція очищення викликається, коли компонент розмонтовується,
+      // або перед наступним викликом ефекту (якщо selectedBookForDetails зміниться).
+      // Гарантує, що клас буде видалено, якщо App розмонтується з відкритою модалкою.
+      console.log("App.jsx: useEffect (скрол) - очищення");
+      document.body.classList.remove('modal-open');
+    };
+  }, [selectedBookForDetails]);
 
-  const handleShowDetails = (book) => {
-    setSelectedBook(book);
-  };
-
-  const handleCloseModal = () => {
-    setSelectedBook(null);
-  };
 
   return (
     <div className="app-container">
       <header>
         <h1>Електронний каталог бібліотеки</h1>
       </header>
-
       <main>
-        {/* 
-          Передаємо повний список книг для генерації опцій фільтрів 
-          та функцію для обробки змін фільтрів.
-        */}
-        <FilterBar allBooks={allBooks} onFilterChange={handleFilterChange} />
-        
-        {/* Тепер BookList отримує `displayedBooks` (відфільтрований список) */}
-        <BookList books={displayedBooks} onShowDetails={handleShowDetails} />
+        <FilterBar
+          currentSearchTerm={searchTerm}
+          onSearchChange={handleSearchChange}
+          currentGenre={selectedGenre}
+          onGenreChange={handleGenreChange}
+          availableGenres={availableGenres}
+        />
+        <BookList
+          books={displayedBooks}
+          onShowDetails={handleShowBookDetails}
+        />
       </main>
-
       <footer>
-        <p>© {new Date().getFullYear()} Фаховий передвищий коледж «ОПТІМА». Розробив Харченко Я.Я.</p>
+        <p>© {new Date().getFullYear()} Фаховий передвищий коледж «ОПТІМА»</p>
       </footer>
 
-      {selectedBook && (
-        <BookDetailModal book={selectedBook} onClose={handleCloseModal} />
+      {selectedBookForDetails && (
+        <BookDetailModal
+          book={selectedBookForDetails}
+          onClose={handleCloseBookDetails}
+        />
       )}
     </div>
   );

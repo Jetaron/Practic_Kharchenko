@@ -1,35 +1,43 @@
 // src/components/BookCard.jsx
 
-// Додаємо `onShowDetails` до пропсів
 function BookCard({ book, onShowDetails }) {
   if (!book) {
+    // console.warn("BookCard: Пропс 'book' є undefined."); // Можна залишити для діагностики
     return <p>Інформація про книгу відсутня.</p>;
   }
 
-  // Функція, яка викликається при кліку на кнопку "Детальніше"
-  // Вона викликає onShowDetails, передаючи поточну книгу
   const handleDetailsClick = () => {
+    // console.log("BookCard: handleDetailsClick викликана для:", book.title); // Можна залишити
     if (onShowDetails) {
+      // console.log("BookCard: onShowDetails існує, викликаю її"); // Можна залишити
       onShowDetails(book);
+    } else {
+      console.warn("BookCard: onShowDetails НЕ переданий або undefined для книги:", book.title);
     }
   };
 
   return (
     <div className="book-card">
-      <img 
-        src={book.coverImageUrl || 'https://via.placeholder.com/150x220.png?text=No+Cover'} 
-        alt={`Обкладинка книги "${book.title}"`} 
-        className="book-cover" 
+      <img
+        src={book.coverImageUrl || '/images/placeholder.png'} // Використовуємо шлях з booksData.js
+                                                             // '/images/placeholder.png' - це приклад локального плейсхолдера,
+                                                             // якщо ти його створиш у public/images/
+        alt={`Обкладинка книги "${book.title}"`}
+        className="book-cover"
+        onError={(e) => { 
+          // Обробник помилки завантаження зображення, можна замінити на плейсхолдер
+          e.target.onerror = null; // Запобігає зацикленню, якщо плейсхолдер теж не знайдено
+          e.target.src = "/images/placeholder.png"; // Шлях до твого плейсхолдера
+          console.warn(`BookCard: Не вдалося завантажити обкладинку для "${book.title}" за шляхом: ${book.coverImageUrl}. Встановлено плейсхолдер.`);
+        }}
       />
       <div className="book-info">
         <h3 className="book-title">{book.title}</h3>
         <p className="book-author">Автор: {book.author}</p>
-        {/* Можна приховати жанр і рік, якщо картка стає занадто великою,
-            бо ця інформація буде в модальному вікні. Або залишити. */}
-        {/* <p className="book-genre">Жанр: {book.genre}</p> */}
-        {/* <p className="book-year">Рік: {book.year}</p> */}
-        
-        {/* Додаємо кнопку */}
+        {/* можна розкоментувати жанр та рік на картці
+        <p className="book-genre">Жанр: {book.genre}</p>
+        <p className="book-year">Рік: {book.year}</p>
+        */}
         <button onClick={handleDetailsClick} className="details-button">
           Детальніше
         </button>

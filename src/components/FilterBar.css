@@ -5,7 +5,7 @@
   flex-wrap: wrap; /* Дозволяє переносити елементи на новий рядок на малих екранах */
   gap: 20px; /* Відстань між групами фільтрів */
   padding: 15px;
-  background-color: #f9f9f9;
+  background-color: #000000;
   border-radius: 8px;
   margin-bottom: 20px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
@@ -20,7 +20,7 @@
 .filter-group label {
   font-size: 0.9em;
   font-weight: bold;
-  color: #555;
+  color: #000000;
 }
 
 .filter-group select {
