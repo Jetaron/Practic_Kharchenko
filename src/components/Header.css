@@ -1,6 +1,6 @@
 /* src/components/Header.css */
 .app-header {
-  background-color: #2c3e50; /* Темно-синій, як приклад */
+  background-color: #2c3e50;
   color: white;
   padding: 20px 15px;
   text-align: center;
@@ -16,5 +16,5 @@
 .app-header p {
   margin: 0;
   font-size: 1em;
-  color: #ecf0f1; /* Світло-сірий для підзаголовка */
+  color: #ecf0f1;
 }
