@@ -1,0 +1,142 @@
+/* src/components/ItemCard.css */
+
+.item-card {
+  border: 1px solid #e0e0e0;          /* Тонка сіра рамка */
+  border-radius: 8px;               /* Закруглені кути */
+  padding: 16px;                    /* Внутрішні відступи */
+  margin: 10px;                     /* Зовнішні відступи між картками */
+  width: 270px;                     /* Фіксована ширина картки (можеш налаштувати) */
+  min-height: 380px;                /* Мінімальна висота, щоб картки були схожі */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.08); /* Легка тінь */
+  display: flex;
+  flex-direction: column;           /* Елементи всередині картки розташовуються вертикально */
+  background-color: #ffffff;         /* Білий фон */
+  cursor: pointer;                  /* Показує, що на картку можна клікнути (для деталей) */
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Плавна анімація */
+  box-sizing: border-box;             /* Щоб padding не впливав на загальну ширину/висоту */
+}
+
+.item-card:hover {
+  transform: translateY(-5px);       /* Трохи піднімає картку при наведенні */
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15); /* Більш виразна тінь при наведенні */
+}
+
+.item-image {
+  width: 100%;
+  height: 180px;                    /* Фіксована висота для картинки */
+  object-fit: cover;                /* Картинка заповнює простір, обрізаючись, зберігаючи пропорції */
+                                    /* Спробуй 'contain', якщо хочеш бачити всю картинку */
+  margin-bottom: 12px;
+  border-radius: 4px;               /* Невелике закруглення для картинки */
+  background-color: #f0f0f0;       /* Фон, якщо картинка не завантажиться */
+}
+
+.item-info {
+  text-align: left;
+  flex-grow: 1;                     /* Дозволяє цьому блоку зайняти весь доступний вертикальний простір */
+  display: flex;
+  flex-direction: column;           /* Щоб елементи всередині також йшли вертикально */
+}
+
+.item-title {
+  font-size: 1.15em;                /* Трохи більший розмір для назви */
+  font-weight: 600;                 /* Напівжирний шрифт */
+  margin-top: 0;
+  margin-bottom: 8px;
+  color: #2c3e50;                   /* Темно-синій колір */
+  line-height: 1.3;                 /* Міжрядковий інтервал */
+  /* Обмеження тексту для назви, якщо вона задовга (на 2 рядки) */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: calc(1.15em * 1.3 * 2); /* Мінімальна висота для двох рядків назви */
+}
+
+.item-card p {
+  font-size: 0.875em;               /* Стандартний розмір тексту для параграфів */
+  margin-bottom: 6px;
+  color: #4a4a4a;                   /* Темно-сірий для тексту */
+  line-height: 1.4;
+}
+
+.item-card p strong {
+  color: #333;                     /* Трохи темніший для "Автор:", "Жанр:" тощо */
+}
+
+/* Стилі для статусу техніки */
+.item-status {
+  font-weight: 600;                 /* Жирний шрифт для статусу */
+}
+.item-status.status-available {
+  color: #27ae60;                   /* Яскраво-зелений */
+}
+.item-status.status-rented {
+  color: #e74c3c;                   /* Яскраво-червоний */
+}
+
+/* Загальні стилі для кнопок всередині картки */
+.availability-button,
+.registration-button {
+  display: block;                   /* Кнопка займає всю доступну ширину */
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: auto;                 /* Притискає кнопку до низу картки, якщо є вільне місце */
+  border: none;
+  border-radius: 5px;
+  font-size: 0.9em;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  box-sizing: border-box;
+}
+
+.availability-button:active,
+.registration-button:active {
+    transform: translateY(1px); /* Ефект натискання */
+}
+
+/* Стилі для кнопки "Забронювати" */
+.availability-button.button-available {
+  background-color: #2ecc71;         /* Світло-зелений */
+  color: white;
+}
+.availability-button.button-available:hover {
+  background-color: #27ae60;         /* Темніший зелений */
+}
+
+/* Стилі для кнопки "Повернути" */
+.availability-button.button-rented {
+  background-color: #e74c3c;         /* Червоний */
+  color: white;
+}
+.availability-button.button-rented:hover {
+  background-color: #c0392b;         /* Темніший червоний */
+}
+
+/* Стилі для кнопки "Записатися" */
+.registration-button.button-not-registered {
+  background-color: #3498db;         /* Синій */
+  color: white;
+}
+.registration-button.button-not-registered:hover {
+  background-color: #2980b9;         /* Темніший синій */
+}
+
+/* Стилі для кнопки "Ви записані" */
+.registration-button.button-registered {
+  background-color: #95a5a6;         /* Сірий (неактивний вигляд) */
+  color: #ecf0f1;
+  /* cursor: default; */             /* Можна розкоментувати, щоб курсор не був 'pointer' */
+}
+
+/* Додаткові стилі для інформації про подію */
+.item-event-date, 
+.item-event-location, 
+.item-event-organizer {
+  font-size: 0.8em;                 /* Менший шрифт для деталей події */
+  color: #7f8c8d;                   /* Сірий колір */
+}

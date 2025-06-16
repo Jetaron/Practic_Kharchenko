@@ -1,6 +1,6 @@
 // src/data/booksData.js
 
-const booksData = [
+export const books = [
   {
     id: 1,
     title: "Кобзар",

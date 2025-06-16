@@ -1,50 +1,73 @@
 // src/App.jsx
 import React, { useState, useEffect, useMemo } from 'react';
 import './App.css';
-import Header from './components/Header';
-import ItemList from './components/ItemList';
-import FilterBar from './components/FilterBar';
-import BookDetailModal from './components/BookDetailModal';
-import { books as booksDataFromJs } from './data/booksData'; // Імпортуємо книги
-import { equipment as equipmentDataFromJs } from './data/equipmentData'; // Імпортуємо техніку
+import Header from './components/header.jsx';
+import ItemList from './components/ItemList.jsx';
+import FilterBar from './components/FilterBar.jsx';
+//import BookDetailModal from './components/BookDetailModal';
+import { books as booksDataFromJs } from './data/booksData.js';
+import { equipment as equipmentDataFromJs } from './data/equipmentData.js';
+import { events as eventsDataFromJs } from './data/eventsData.js'; // <-- ІМПОРТ ДАНИХ ПРО ПОДІЇ
 
-// Додаємо поле 'type' до кожного елемента і об'єднуємо
-const allLibraryItems = [
-  ...booksDataFromJs.map(book => ({ ...book, type: 'book' })),
+// Об'єднуємо всі дані та додаємо поле 'type'
+const initialMasterList = [
+  ...booksDataFromJs.map(item => ({ ...item, type: 'book' })),
   ...equipmentDataFromJs.map(item => ({ ...item, type: 'equipment' })),
+  ...eventsDataFromJs.map(item => ({ ...item, type: 'event' })), // <-- ДОДАЄМО ПОДІЇ
 ];
 
 function App() {
-  const [itemsToDisplay, setItemsToDisplay] = useState(allLibraryItems);
+  const [masterList, setMasterList] = useState(initialMasterList); // Основний список усіх елементів
+  
+  const [itemsToDisplay, setItemsToDisplay] = useState(masterList);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedType, setSelectedType] = useState('all'); // 'all', 'book', 'equipment'
+  const [selectedType, setSelectedType] = useState('all'); // 'all', 'book', 'equipment', 'event'
   const [selectedGenre, setSelectedGenre] = useState('all');
   const [selectedItemForModal, setSelectedItemForModal] = useState(null);
 
   const genres = useMemo(() => {
-    const bookGenres = booksDataFromJs // Використовуємо тільки дані книг для жанрів
-      .filter(book => book.genre)
+    // ... (код для genres залишається без змін, бо жанри тільки у книг)
+    const bookGenres = masterList
+      .filter(item => item.type === 'book' && item.genre)
       .map(book => book.genre);
-    return [...new Set(bookGenres.flat())].sort();
-  }, []); // Залежність від booksDataFromJs, якщо вона може змінюватися (але в нас статична)
+    return [...new Set(bookGenres.map(g => String(g)))].sort();
+  }, [masterList]);
+
+  // Функція для зміни статусу доступності техніки
+  const handleToggleAvailability = (itemId) => { // Тепер не потрібен itemType, бо ми знаємо ID
+    setMasterList(prevMasterList => 
+      prevMasterList.map(item => 
+        item.id === itemId && item.type === 'equipment'
+          ? { ...item, availabilityStatus: item.availabilityStatus === 'available' ? 'rented' : 'available' }
+          : item
+      )
+    );
+  };
+
+  // НОВА ФУНКЦІЯ для зміни статусу реєстрації на подію
+  const handleToggleRegistration = (eventId) => {
+    setMasterList(prevMasterList =>
+      prevMasterList.map(item =>
+        item.id === eventId && item.type === 'event'
+          ? { ...item, isRegistered: !item.isRegistered } // Змінюємо на протилежне
+          : item
+      )
+    );
+  };
 
   useEffect(() => {
-    let filteredItems = allLibraryItems;
+    let filteredItems = masterList;
 
     // 1. Фільтрація за типом
     if (selectedType !== 'all') {
       filteredItems = filteredItems.filter(item => item.type === selectedType);
     }
 
-    // 2. Фільтрація за жанром (тільки для книг, якщо тип "book" або "all")
-    if ((selectedType === 'book' || selectedType === 'all') && selectedGenre !== 'all') {
-      filteredItems = filteredItems.filter(item => {
-        if (item.type === 'book') {
-          return item.genre === selectedGenre;
-        }
-        // Якщо обрано "all types" і жанр, то техніка не відфільтровується за жанром
-        return selectedType === 'all' ? true : false; 
-      });
+    // 2. Фільтрація за жанром (тільки для книг)
+    if (selectedGenre !== 'all' && (selectedType === 'book' || selectedType === 'all')) {
+      filteredItems = filteredItems.filter(item => 
+        item.type === 'book' ? item.genre === selectedGenre : true
+      );
     }
 
     // 3. Фільтрація за пошуковим запитом
@@ -56,20 +79,23 @@ function App() {
           const authorMatch = item.author.toLowerCase().includes(lowercasedSearchTerm);
           return titleMatch || authorMatch;
         }
-        return titleMatch; // Для техніки шукаємо тільки за назвою
+        // Для техніки та подій шукаємо тільки за назвою (можна розширити)
+        return titleMatch; 
       });
     }
 
     setItemsToDisplay(filteredItems);
-  }, [searchTerm, selectedType, selectedGenre]);
+  }, [searchTerm, selectedType, selectedGenre, masterList]);
 
 
   const handleShowDetails = (item) => {
     if (item.type === 'book') {
       setSelectedItemForModal(item);
-    } else {
-      console.log("Деталі для техніки (поки без модалки):", item);
-      // Тут можна буде відкривати іншу модалку для техніки
+    } else if (item.type === 'equipment') {
+      alert(`Техніка: ${item.title}\nТип: ${item.equipmentType}\nСтатус: ${item.availabilityStatus === 'available' ? 'В наявності' : 'В оренді'}`);
+    } else if (item.type === 'event') {
+      alert(`Подія: ${item.title}\nДата: ${item.date} (${item.time})\nМісце: ${item.location}\nОрганізатор: ${item.organizer}\nВи записані: ${item.isRegistered ? 'Так' : 'Ні'}`);
+      // Тут можна буде зробити окрему модалку для подій
     }
   };
 
@@ -79,27 +105,33 @@ function App() {
 
   return (
     <div className="App">
-      <Header title="Моя Універсальна Бібліотека" tagline="Книги та техніка для кожного!" />
+      <Header title="Моя Універсальна Бібліотека" tagline="Книги, техніка, події та багато іншого!" />
       
       <FilterBar
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}
         selectedType={selectedType}
         onTypeChange={setSelectedType}
-        genres={genres}
+        genres={genres} 
         selectedGenre={selectedGenre}
         onGenreChange={setSelectedGenre}
       />
 
-      <ItemList items={itemsToDisplay} onShowDetails={handleShowDetails} />
+      {/* Передаємо нову функцію onToggleRegistration в ItemList */}
+      <ItemList 
+        items={itemsToDisplay} 
+        onShowDetails={handleShowDetails} 
+        onToggleAvailability={handleToggleAvailability}
+        onToggleRegistration={handleToggleRegistration} // <-- НОВА ФУНКЦІЯ
+      />
 
-      {selectedItemForModal && selectedItemForModal.type === 'book' && ( // Перевірка типу для модалки
+      {selectedItemForModal && selectedItemForModal.type === 'book' && (
         <BookDetailModal item={selectedItemForModal} onClose={handleCloseModal} />
       )}
       
       <footer className="app-footer-custom">
-        <p>© {new Date().getFullYear()} Твоя Бібліотека. Всі права захищено.</p>
-        <p>THEMOSTIMPORTANTFILE.txt все ще на місці! І тепер з окремими даними!</p>
+        <p>© {new Date().getFullYear()} Твоя Бібліотека. Заходь ще!</p>
+        <p>THEMOSTIMPORTANTFILE.txt благословляє цей реліз!</p>
       </footer>
     </div>
   );

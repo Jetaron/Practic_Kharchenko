@@ -1,0 +1,21 @@
+/* src/components/ItemList.css */
+.item-list-grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.item-list-message-container {
+  width: 100%;
+  text-align: center;
+  padding: 40px 20px;
+  font-size: 1.2em;
+  color: #777;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
