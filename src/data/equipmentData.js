@@ -1,4 +1,4 @@
-// src/data/equipmentData.js
+
 export const equipment = [
   // --- Ноутбуки ---
   {

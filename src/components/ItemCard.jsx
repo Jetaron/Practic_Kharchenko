@@ -1,4 +1,4 @@
-// src/components/ItemCard.jsx
+
 import React from 'react';
 import './ItemCard.css';
 

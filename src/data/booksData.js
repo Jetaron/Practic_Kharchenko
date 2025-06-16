@@ -1,4 +1,3 @@
-// src/data/booksData.js
 
 export const books = [
   {
@@ -227,5 +226,3 @@ export const books = [
     coverImageUrl: "/images/zapysky_samashedshego.png" 
   }
 ];
-
-export default booksData;

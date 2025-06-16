@@ -1,4 +1,4 @@
-// src/components/ItemList.jsx
+
 import React from 'react';
 import ItemCard from './ItemCard';
 import './ItemList.css';
