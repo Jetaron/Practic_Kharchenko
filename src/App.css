@@ -1,4 +1,21 @@
-/* src/App.css - Відновлення та покращення для десктопу */
+.App {
+  text-align: center; /* Це центрує інлайн-елементи та текст всередині App */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f4f7f6; 
+}
+
+.main-content-area {
+  flex-grow: 1; 
+  padding: 10px 1350px 20px 10px; 
+  width: 100%; /* Займає всю доступну ширину */
+  max-width: 1920px; /* Обмежуємо максимальну ширину для великих екранів */
+  margin: 0 auto; /* <--- ОСЬ ЦЕ ЦЕНТРУЄ БЛОК ПО ГОРИЗОНТАЛІ */
+  box-sizing: border-box;
+  text-align: left; /* Повертаємо вирівнювання тексту для контенту всередині main */
+}
 
 body {
   font-family: 'Georgia', 'Times New Roman', serif;
@@ -10,7 +27,7 @@ body {
 
 .app-container {
   width: 90%; 
-  max-width: 1800px; /* Збільшимо ще, можна пробувати 1920px або навіть 2200px */
+  max-width: 1920px; /* Збільшимо ще, можна пробувати 1920px або навіть 2200px */
   margin: 25px auto;
   padding: 30px 40px; 
   background-color: #fffaf0;
@@ -89,7 +106,7 @@ main {
 .book-list {
   display: grid;
   /* Встановлюємо бажану кількість колонок для широких екранів */
-  grid-template-columns: repeat(4, 1fr); /* Спробуємо 4 колонки */
+  grid-template-columns: repeat(3, 1fr); /* Спробуємо 3 колонки */
   /* Або, якщо хочеш більше гнучкості з шириною карток: */
   /* grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); */
   gap: 25px;

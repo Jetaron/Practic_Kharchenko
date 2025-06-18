@@ -2,10 +2,10 @@
 import React from 'react';
 import './ItemCard.css';
 
-function ItemCard({ item, onShowDetails, onToggleAvailability, onToggleRegistration }) { // Додаємо onToggleRegistration
-  const imageUrl = item.type === 'book' 
+function ItemCard({ item, onShowDetails, onToggleAvailability, onToggleRegistration }) { 
+         const imageUrl = item.type === 'book' 
                     ? item.coverUrl 
-                    : (item.type === 'equipment' || item.type === 'event' ? item.imageUrl : ''); // Картинка для техніки та подій
+                    : (item.type === 'equipment' || item.type === 'event' ? item.imageUrl : ''); 
 
   const handleCardClick = () => {
     if (onShowDetails) {

@@ -1,79 +1,53 @@
 
-
 .filter-bar {
   display: flex;
-  flex-wrap: wrap; /* Дозволяє переносити елементи на новий рядок на малих екранах */
-  gap: 20px; /* Відстань між групами фільтрів */
-  padding: 15px;
-  background-color: #000000;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  flex-wrap: wrap; /* Дозволяє елементам переноситися на новий рядок */
+  gap: 15px;       /* Відстань між групами фільтрів та полем пошуку */
+  padding: 15px 20px;
+  background-color: #f8f9fa; /* Світлий фон */
+  border-bottom: 1px solid #dee2e6; /* Лінія знизу */
+  margin-bottom: 25px; /* Відступ знизу */
+  align-items: center; /* Вирівнювання елементів по центру по вертикалі */
+}
+
+.search-group {
+  flex-grow: 1; /* Дозволяє полю пошуку займати доступний простір */
+  min-width: 200px; /* Мінімальна ширина для поля пошуку */
+}
+
+.search-input-filterbar {
+  width: 100%; /* Поле пошуку займає всю ширину своєї групи */
+  padding: 10px 14px;
+  font-size: 1rem;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  box-sizing: border-box; /* Щоб padding не збільшував розмір */
 }
 
 .filter-group {
   display: flex;
-  flex-direction: column; /* Лейбл над селектом */
-  gap: 5px; /* Відстань між лейблом та селектом */
+  align-items: center;
+  gap: 8px; /* Відстань між label та select/input */
 }
 
 .filter-group label {
-  font-size: 0.9em;
-  font-weight: bold;
-  color: #000000;
+  font-size: 0.9rem;
+  color: #495057;
+  white-space: nowrap; /* Запобігає переносу тексту в label */
+  margin-bottom: 0; /* Прибираємо можливий нижній відступ у label */
 }
 
 .filter-group select {
-  padding: 8px 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: rgb(0, 0, 0);
-  min-width: 180px; /* Мінімальна ширина селекта */
-  font-size: 0.9em;
-}
-
-.filter-group select:focus {
-  outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
-}
-
-.reset-filters-button {
-  background-color: #6c757d; /* Сірий колір */
-  color: white;
-  border: none;
-  padding: 8px 15px;
-  border-radius: 4px;
+  padding: 9px 12px; /* Трохи більші відступи для select */
+  font-size: 0.95rem;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  background-color: white;
   cursor: pointer;
-  font-size: 0.9em;
-  transition: background-color 0.2s ease;
-  align-self: flex-end; /* Вирівнюємо кнопку по нижньому краю, якщо фільтри в один ряд */
-  margin-left: auto; /* Якщо потрібно притиснути кнопку вправо, якщо є місце */
+  min-width: 150px; /* Мінімальна ширина для select */
 }
 
-.reset-filters-button:hover {
-  background-color: #5a6268;
-}
-
-
-/* Адаптивність для маленьких екранів */
-@media (max-width: 768px) {
-  .filter-bar {
-    flex-direction: column; /* Фільтри один під одним */
-    align-items: stretch; /* Розтягуємо групи фільтрів на всю ширину */
-  }
-  .filter-group select {
-    width: 100%; /* Селекти на всю доступну ширину */
-  }
-  .reset-filters-button {
-    align-self: center; /* Центруємо кнопку */
-    margin-left: 0;
-    margin-top: 10px; /* Невеликий відступ зверху */
-  }
-}
-
-
-/* Стиль для приховування міток доступним чином */
+/* Стиль для прихованих міток (для доступності) */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -84,4 +58,15 @@
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
+}
+
+/* Заглушка, якщо фільтри не завантажились (якщо ти її використовуєш в FilterBar.jsx) */
+.filter-bar-error {
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+  color: #dc3545; /* Червоний колір для помилки */
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 6px;
 }

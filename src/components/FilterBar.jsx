@@ -1,4 +1,4 @@
-// src/components/FilterBar.jsx
+
 import React from 'react';
 import './FilterBar.css'; // Переконайся, що цей файл існує та підключений
 

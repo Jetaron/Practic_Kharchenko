@@ -1,20 +1,76 @@
-
 .app-header {
-  background-color: #2c3e50;
+  background-color: #2c3e50; /* Темно-синій */
   color: white;
-  padding: 20px 15px;
+  padding: 20px 30px; /* Збільшив горизонтальний padding */
   text-align: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  margin-bottom: 20px; /* Відступ від основного контенту */
 }
 
-.app-header h1 {
-  margin: 0 0 5px 0;
-  font-size: 2.2em;
-  font-weight: 600;
+.header-content h1 {
+  margin: 0 0 8px 0;
+  font-size: 2.4em; /* Трохи більший шрифт для заголовка */
+  font-weight: 700;
 }
 
-.app-header p {
+.header-tagline {
   margin: 0;
-  font-size: 1em;
-  color: #ecf0f1;
+  font-size: 1.1em;
+  color: #bdc3c7; /* Світліший сірий для підзаголовка */
+}
+
+.header-tabs-navigation {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px; /* Відступ від заголовка/підзаголовка */
+  border-top: 1px solid #34495e; /* Лінія над вкладками */
+  padding-top: 15px;
+}
+
+.header-tab-button {
+  padding: 10px 25px; /* Збільшив padding для кнопок */
+  font-size: 1.05em;
+  font-weight: 500;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: #ecf0f1; /* Світлий колір для тексту вкладок */
+  transition: color 0.2s ease, background-color 0.2s ease;
+  margin: 0 8px;
+  border-radius: 5px; /* Невелике закруглення */
+}
+
+.header-tab-button:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Легкий фон при наведенні */
+  color: #ffffff;
+}
+
+.header-tab-button.active {
+  background-color: #3498db; /* Яскравий синій для активної вкладки */
+  color: #ffffff;
+  font-weight: bold;
+}
+
+/* Адаптивність для хедера */
+@media (max-width: 768px) {
+  .app-header {
+    padding: 15px 20px;
+  }
+  .header-content h1 {
+    font-size: 1.8em;
+  }
+  .header-tagline {
+    font-size: 0.95em;
+  }
+  .header-tabs-navigation {
+    margin-top: 15px;
+    padding-top: 10px;
+    /* Можна зробити вкладки вертикальними або скролитися горизонтально */
+    /* flex-direction: column; */ 
+    /* gap: 5px; */
+  }
+  .header-tab-button {
+    padding: 8px 15px;
+    font-size: 0.95em;
+  }
 }

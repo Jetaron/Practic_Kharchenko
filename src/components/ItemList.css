@@ -1,20 +1,25 @@
 
 .item-list-grid-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
-  padding: 20px;
+  /* Створюємо адаптивні колонки: кожна мінімум 270px (ширина картки з ItemCard.css) 
+     + 20px (сумарний margin картки зліва/справа, якщо він є)
+     Або просто вказуємо бажану мінімальну ширину колонки.
+     Давай спробуємо minmax(290px, 1fr) - це має дати місце для картки 270px + невеликі відступи.
+  */
+grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Зробимо колонки дуже вузькими для тесту */
+  gap: 200px; /* Відстань між "комірками" сітки, де будуть картки */
+  padding: 20x; /* Відступи всередині самого контейнера списку */
   width: 100%;
-  box-sizing: border-box;
+  box-sizing: border-box; /* Щоб padding не збільшував загальну ширину */
 }
 
-.item-list-message-container {
+.item-list-message-container { /* Стиль для повідомлення "Нічого не знайдено" */
   width: 100%;
   text-align: center;
   padding: 40px 20px;
   font-size: 1.2em;
   color: #777;
-  min-height: 200px;
+  min-height: 200px; 
   display: flex;
   align-items: center;
   justify-content: center;

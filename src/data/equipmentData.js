@@ -114,7 +114,7 @@ export const equipment = [
     equipmentType: 'Проектор',
     specs: 'Full HD (1920x1080), 3500 люмен, 3LCD, HDMI, Wi-Fi',
     availabilityStatus: 'available',
-    imageUrl: '/images/equipment/epson_projector.jpg', // Ти вже мав схожий, можна оновити
+    imageUrl: '/images/equipment/epson_projector.jpg', 
     description: 'Яскравий та чіткий проектор для домашнього кінотеатру або презентацій.'
   },
   {
@@ -123,7 +123,7 @@ export const equipment = [
     equipmentType: 'Навушники',
     specs: 'Бездротові, з активним шумозаглушенням, до 30 годин роботи, Bluetooth',
     availabilityStatus: 'available',
-    imageUrl: '/images/equipment/sony_wh1000xm5.jpg', // Ти вже мав схожі
+    imageUrl: '/images/equipment/sony_wh1000xm5.jpg', 
     description: 'Лідер ринку навушників з шумозаглушенням для ідеального звуку.'
   },
   {

@@ -1,4 +1,3 @@
-// src/components/BooksTab.jsx
 import React, { useState, useEffect, useMemo } from 'react';
 import ItemList from './ItemList.jsx';
 import FilterBar from './FilterBar.jsx';
@@ -16,15 +15,13 @@ function BooksTab() {
       .filter(book => book.genre)
       .map(book => String(book.genre));
     return [...new Set(bookGenres)].sort();
-  }, []); // allBooksData тут статичні
+  }, []);
 
   useEffect(() => {
     let filteredBooksResult = allBooksData;
-
     if (selectedGenre !== 'all') {
       filteredBooksResult = filteredBooksResult.filter(book => book.genre === selectedGenre);
     }
-
     if (searchTerm.trim() !== '') {
       const lowercasedSearchTerm = searchTerm.toLowerCase();
       filteredBooksResult = filteredBooksResult.filter(book => {
@@ -34,36 +31,25 @@ function BooksTab() {
       });
     }
     setDisplayedBooks(filteredBooksResult);
-  }, [searchTerm, selectedGenre]); // allBooksData тут не потрібен як залежність
+  }, [searchTerm, selectedGenre]);
 
-  const handleShowDetails = (book) => {
-    setSelectedBookForModal(book);
-  };
+  const handleShowDetails = (book) => setSelectedBookForModal(book);
+  const handleCloseModal = () => setSelectedBookForModal(null);
 
-  const handleCloseModal = () => {
-    setSelectedBookForModal(null);
-  };
-
-  // Формуємо об'єкт опцій для FilterBar, специфічний для книг
   const filterOptionsForBooks = {
     searchPlaceholder: "Пошук книг за назвою або автором...",
-    genres: genres, // Передаємо список доступних жанрів
+    genres: genres,
     selectedGenre: selectedGenre,
     onGenreChange: setSelectedGenre,
-    // Тут ми не передаємо showTypeFilter, types, selectedType, onTypeChange,
-    // бо вони не потрібні для вкладки "Книги". FilterBar має це обробити.
   };
-
-  // ДІАГНОСТИЧНИЙ ЛОГ: що саме BooksTab передає в FilterBar
-  console.log('[BooksTab] Передаємо в FilterBar filterOptions:', filterOptionsForBooks);
 
   return (
     <div className="tab-content books-tab">
-      <h2>Каталог Книг</h2>
+      {/* <h2>Каталог Книг</h2>  <-- Можна прибрати, якщо заголовок вже є в Header або десь ще */}
       <FilterBar
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}
-        filterOptions={filterOptionsForBooks} // Передаємо правильно названий проп
+        filterOptions={filterOptionsForBooks}
       />
       <ItemList
         items={displayedBooks.map(book => ({ ...book, type: 'book' }))}
