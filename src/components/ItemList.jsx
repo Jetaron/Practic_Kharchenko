@@ -1,15 +1,15 @@
 // src/components/ItemList.jsx
 import React from 'react';
-import ItemCard from './ItemCard.jsx'; // Переконайся, що розширення правильне
-import './ItemList.css';         // Підключаємо стилі
+import ItemCard from './ItemCard.jsx';
+import './ItemList.css';
 
-// Компонент тепер приймає ВСІ три функції onToggle...
 function ItemList({ 
   items, 
   onShowDetails, 
-  onToggleBookRental,       // Для книг
-  onToggleAvailability,     // Для техніки
-  onToggleRegistration      // Для подій
+  onToggleBookRental, 
+  onToggleAvailability, 
+  onToggleRegistration, 
+  currentUser // <--- НОВИЙ ПРОП
 }) {
   
   if (!items || items.length === 0) {
@@ -27,11 +27,10 @@ function ItemList({
           key={item.id}
           item={item}
           onShowDetails={onShowDetails}
-          // Умовно передаємо потрібну функцію onToggle... в ItemCard
-          // ItemCard сам розбереться, яку кнопку показати і яку функцію викликати
           onToggleBookRental={item.type === 'book' ? onToggleBookRental : undefined}
           onToggleAvailability={item.type === 'equipment' ? onToggleAvailability : undefined}
           onToggleRegistration={item.type === 'event' ? onToggleRegistration : undefined}
+          currentUser={currentUser} // <--- ПЕРЕДАЄМО currentUser
         />
       ))}
     </div>
