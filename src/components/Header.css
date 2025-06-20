@@ -1,76 +1,180 @@
+/* src/components/Header.css */
+
 .app-header {
-  background-color: #2c3e50; /* Темно-синій */
+  background-color: #2c3e50; /* Темно-синьо-сірий фон */
   color: white;
-  padding: 20px 30px; /* Збільшив горизонтальний padding */
-  text-align: center;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-  margin-bottom: 20px; /* Відступ від основного контенту */
+  padding: 20px 30px;      /* Загальні відступи хедера */
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16); /* Тінь для об'єму */
+  margin-bottom: 25px;     /* Відступ знизу від основного контенту */
+  position: sticky;        /* Робить хедер "липким" при скролі */
+  top: 0;                  /* Прикріплює до верху екрану */
+  z-index: 900;            /* Щоб був поверх іншого контенту, але нижче модалок (у яких z-index: 1000) */
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.header-content h1 {
-  margin: 0 0 8px 0;
-  font-size: 2.4em; /* Трохи більший шрифт для заголовка */
-  font-weight: 700;
+/* Верхній рядок: Назва сайту та кнопки Увійти/Профіль/Вийти */
+.header-main-row {
+  display: flex;
+  justify-content: space-between; /* Розносить елементи по краях */
+  align-items: center;           /* Вирівнює елементи по центру вертикально */
+  width: 100%;
+  margin-bottom: 18px;           /* Відступ до навігації вкладками */
 }
 
-.header-tagline {
+.header-branding {
+  text-align: left; /* Назва та підзаголовок зліва */
+}
+
+.header-branding h1 {
   margin: 0;
-  font-size: 1.1em;
-  color: #bdc3c7; /* Світліший сірий для підзаголовка */
+  font-size: 2.3em;  /* Розмір основного заголовка */
+  font-weight: 700;  /* Жирний шрифт */
+  letter-spacing: -0.5px; /* Трохи зменшимо відстань між літерами */
 }
 
+.header-branding .header-tagline {
+  margin: 2px 0 0 0; /* Невеликий відступ зверху */
+  font-size: 1em;
+  color: #bdc3c7;     /* Світло-сірий для підзаголовка */
+  font-weight: 300;   /* Тонший шрифт */
+}
+
+/* Контейнер для кнопок аутентифікації та профілю */
+.auth-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Відстань між кнопками, якщо їх декілька */
+}
+
+.username-display {
+  color: #ecf0f1; /* Світлий текст для імені користувача */
+  margin-right: 10px;
+  font-size: 0.95em;
+  font-weight: 500;
+}
+
+.auth-controls .auth-button {
+  padding: 9px 18px; /* Трохи більші кнопки */
+  font-size: 0.9em;
+  font-weight: 500;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  text-transform: uppercase; /* Великі літери */
+  letter-spacing: 0.5px;
+}
+
+.auth-controls .auth-button:active {
+  transform: translateY(1px);
+}
+
+.auth-controls .login-button {
+  background-color: #27ae60; /* Яскраво-зелений */
+  color: white;
+}
+.auth-controls .login-button:hover {
+  background-color: #229954; /* Темніший зелений */
+}
+
+.auth-controls .profile-button {
+  background-color: #f39c12; /* Помаранчевий */
+  color: white;
+}
+.auth-controls .profile-button:hover {
+  background-color: #e67e22; /* Темніший помаранчевий */
+}
+.auth-controls .profile-button.active-profile-tab { /* Стиль для активної вкладки "Кабінет" */
+  background-color: #d35400; /* Ще темніший помаранчевий */
+  box-shadow: inset 0 2px 3px rgba(0,0,0,0.25);
+}
+
+.auth-controls .logout-button {
+  background-color: #e74c3c; /* Червоний */
+  color: white;
+}
+.auth-controls .logout-button:hover {
+  background-color: #c0392b; /* Темніший червоний */
+}
+
+
+/* Навігація по основних вкладках (Книги, Техніка, Події) */
 .header-tabs-navigation {
   display: flex;
-  justify-content: center;
-  margin-top: 20px; /* Відступ від заголовка/підзаголовка */
-  border-top: 1px solid #34495e; /* Лінія над вкладками */
-  padding-top: 15px;
+  justify-content: center; /* Розташування вкладок по центру */
+  border-top: 1px solid rgba(255, 255, 255, 0.15); /* Тонка світла лінія над вкладками */
+  padding-top: 12px;
 }
 
 .header-tab-button {
-  padding: 10px 25px; /* Збільшив padding для кнопок */
-  font-size: 1.05em;
+  padding: 10px 22px;
+  font-size: 1rem; /* Використовуємо rem для кращої доступності */
   font-weight: 500;
   border: none;
   background-color: transparent;
   cursor: pointer;
-  color: #ecf0f1; /* Світлий колір для тексту вкладок */
-  transition: color 0.2s ease, background-color 0.2s ease;
-  margin: 0 8px;
-  border-radius: 5px; /* Невелике закруглення */
+  color: #bdc3c7; /* Світло-сірий для неактивних вкладок */
+  transition: color 0.2s ease, background-color 0.2s ease, border-bottom-color 0.2s ease;
+  margin: 0 5px;
+  border-bottom: 3px solid transparent; /* Прозорий бордер для анімації */
+  border-radius: 4px 4px 0 0; /* Невелике закруглення зверху */
 }
 
 .header-tab-button:hover {
-  background-color: rgba(255, 255, 255, 0.1); /* Легкий фон при наведенні */
+  background-color: rgba(255, 255, 255, 0.05); /* Дуже легкий фон при наведенні */
   color: #ffffff;
 }
 
 .header-tab-button.active {
-  background-color: #3498db; /* Яскравий синій для активної вкладки */
-  color: #ffffff;
-  font-weight: bold;
+  background-color: rgba(255, 255, 255, 0.1); /* Трохи виділяємо фон активної вкладки */
+  color: #ffffff; /* Білий колір для активної вкладки */
+  font-weight: 700; /* Жирніший шрифт */
+  border-bottom-color: #3498db; /* Синій підкреслення для активної вкладки */
 }
 
 /* Адаптивність для хедера */
 @media (max-width: 768px) {
   .app-header {
-    padding: 15px 20px;
+    padding: 15px 15px; /* Менші відступи на мобільних */
   }
-  .header-content h1 {
-    font-size: 1.8em;
+
+  .header-main-row {
+    flex-direction: column; /* Брендинг над кнопками аутентифікації */
+    align-items: center;    /* Все по центру */
+    gap: 12px;
+    margin-bottom: 12px;
   }
-  .header-tagline {
-    font-size: 0.95em;
+
+  .header-branding {
+    text-align: center;
   }
+  .header-branding h1 {
+    font-size: 1.9em;
+  }
+  .header-branding .header-tagline {
+    font-size: 0.9em;
+  }
+
+  .auth-controls {
+    margin-top: 0; /* Прибираємо верхній відступ, бо є gap */
+    width: 100%;
+    justify-content: center; /* Кнопки по центру */
+  }
+  .auth-controls .auth-button {
+    padding: 9px 12px;
+    font-size: 0.85em;
+  }
+
   .header-tabs-navigation {
-    margin-top: 15px;
     padding-top: 10px;
-    /* Можна зробити вкладки вертикальними або скролитися горизонтально */
-    /* flex-direction: column; */ 
-    /* gap: 5px; */
+    /* Можна зробити вкладки скролбарними, якщо їх багато і вони не вміщаються */
+    /* overflow-x: auto; */
+    /* justify-content: flex-start; */
   }
   .header-tab-button {
-    padding: 8px 15px;
-    font-size: 0.95em;
+    padding: 8px 12px;
+    font-size: 0.9em;
+    margin: 0 2px;
   }
 }

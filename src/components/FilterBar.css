@@ -70,3 +70,13 @@
   border: 1px solid #f5c6cb;
   border-radius: 6px;
 }
+
+.header-tab-button.profile-tab-button {
+  background-color: #f39c12;
+}
+
+.header-tab-button.profile-tab-button.active {
+  background-color: #d35400; /* Темніший помаранчевий для активної вкладки профілю */
+  color: white;
+  border-bottom-color: #d35400; /* Або інший колір підкреслення */
+}

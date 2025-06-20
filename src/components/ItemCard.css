@@ -1,12 +1,11 @@
 
-
 .item-card {
-  border: 1px solid #e0e0e0;          /* Тонка сіра рамка */
-  border-radius: 8px;               /* Закруглені кути */
-  padding: 16px;                    /* Внутрішні відступи */
-  margin: 10px;                     /* Зовнішні відступи між картками */
-   width: 350px !important; /* ТЕСТ */
-  min-height: 380px;                /* Мінімальна висота, щоб картки були схожі */
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 12px; /* Трохи зменшимо внутрішні відступи */
+  margin: 8px;   /* Трохи зменшимо зовнішні відступи */
+  width: 200px;  /* <--- ЗРОБИМО КАРТКИ ВУЖЧИМИ */
+  min-height: 320px; /* Можна підібрати */
   box-shadow: 0 2px 5px rgba(0,0,0,0.08); /* Легка тінь */
   display: flex;
   flex-direction: column;           /* Елементи всередині картки розташовуються вертикально */
@@ -23,12 +22,14 @@
 
 .item-image {
   width: 100%;
-  height: 180px;                    /* Фіксована висота для картинки */
-  object-fit: cover;                /* Картинка заповнює простір, обрізаючись, зберігаючи пропорції */
-                                    /* Спробуй 'contain', якщо хочеш бачити всю картинку */
-  margin-bottom: 12px;
-  border-radius: 4px;               /* Невелике закруглення для картинки */
-  background-color: #f0f0f0;       /* Фон, якщо картинка не завантажиться */
+  height: 160px; /* Зменшимо висоту картинки */
+  object-fit: contain; /* Залишаємо contain, щоб бачити всю картинку */
+  margin-bottom: 10px;
+  border-radius: 4px;
+  background-color: #f8f9fa;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .item-info {
@@ -39,7 +40,7 @@
 }
 
 .item-title {
-  font-size: 1.15em;                /* Трохи більший розмір для назви */
+  font-size: 1em; /* Трохи менший шрифт для назви */
   font-weight: 600;                 /* Напівжирний шрифт */
   margin-top: 0;
   margin-bottom: 8px;
@@ -52,11 +53,11 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  min-height: calc(1.15em * 1.3 * 2); /* Мінімальна висота для двох рядків назви */
+  min-height: calc(1em * 1.3 * 2); /* Оновити під новий font-size */
 }
 
 .item-card p {
-  font-size: 0.875em;               /* Стандартний розмір тексту для параграфів */
+  font-size: 0.8em; /* Менший шрифт для деталей */
   margin-bottom: 6px;
   color: #4a4a4a;                   /* Темно-сірий для тексту */
   line-height: 1.4;

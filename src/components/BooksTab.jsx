@@ -1,59 +1,66 @@
+// src/components/BooksTab.jsx
 import React, { useState, useEffect, useMemo } from 'react';
 import ItemList from './ItemList.jsx';
 import FilterBar from './FilterBar.jsx';
 import BookDetailModal from './BookDetailModal.jsx';
-import { books as allBooksData } from '../data/booksData.js';
 
-function BooksTab() {
-  const [displayedBooks, setDisplayedBooks] = useState(allBooksData);
+function BooksTab({ allItems, onToggleBookRental, currentUser }) { 
+  const [displayedItems, setDisplayedItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedGenre, setSelectedGenre] = useState('all');
   const [selectedBookForModal, setSelectedBookForModal] = useState(null);
 
+  const booksOnly = useMemo(() => 
+    allItems.filter(item => item.type === 'book'), 
+  [allItems]);
+
   const genres = useMemo(() => {
-    const bookGenres = allBooksData
+    const bookGenres = booksOnly
       .filter(book => book.genre)
       .map(book => String(book.genre));
     return [...new Set(bookGenres)].sort();
-  }, []);
+  }, [booksOnly]);
 
   useEffect(() => {
-    let filteredBooksResult = allBooksData;
+    let filteredResult = booksOnly;
     if (selectedGenre !== 'all') {
-      filteredBooksResult = filteredBooksResult.filter(book => book.genre === selectedGenre);
+      filteredResult = filteredResult.filter(book => book.genre === selectedGenre);
     }
     if (searchTerm.trim() !== '') {
       const lowercasedSearchTerm = searchTerm.toLowerCase();
-      filteredBooksResult = filteredBooksResult.filter(book => {
+      filteredResult = filteredResult.filter(book => {
         const titleMatch = book.title.toLowerCase().includes(lowercasedSearchTerm);
         const authorMatch = book.author ? book.author.toLowerCase().includes(lowercasedSearchTerm) : false;
         return titleMatch || authorMatch;
       });
     }
-    setDisplayedBooks(filteredBooksResult);
-  }, [searchTerm, selectedGenre]);
+    setDisplayedItems(filteredResult);
+  }, [searchTerm, selectedGenre, booksOnly]);
 
   const handleShowDetails = (book) => setSelectedBookForModal(book);
   const handleCloseModal = () => setSelectedBookForModal(null);
 
+  // Опції фільтрів для книг
   const filterOptionsForBooks = {
     searchPlaceholder: "Пошук книг за назвою або автором...",
-    genres: genres,
-    selectedGenre: selectedGenre,
-    onGenreChange: setSelectedGenre,
+    genres: genres, // Масив жанрів
+    selectedGenre: selectedGenre, // Поточний обраний жанр
+    onGenreChange: setSelectedGenre, // Функція для зміни жанру
+    // Тут немає filterOptions.onTypeChange, бо ця вкладка тільки для книг
   };
 
   return (
     <div className="tab-content books-tab">
-      {/* <h2>Каталог Книг</h2>  <-- Можна прибрати, якщо заголовок вже є в Header або десь ще */}
+      <h2>Каталог Книг</h2>
       <FilterBar
         searchTerm={searchTerm}
-        onSearchChange={setSearchTerm}
-        filterOptions={filterOptionsForBooks}
+        onSearchChange={setSearchTerm} // Функція для зміни пошукового запиту
+        filterOptions={filterOptionsForBooks} // Передаємо об'єкт з опціями
       />
       <ItemList
-        items={displayedBooks.map(book => ({ ...book, type: 'book' }))}
+        items={displayedItems} 
         onShowDetails={handleShowDetails}
+        onToggleBookRental={onToggleBookRental} 
       />
       {selectedBookForModal && (
         <BookDetailModal item={selectedBookForModal} onClose={handleCloseModal} />

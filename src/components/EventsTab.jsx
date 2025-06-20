@@ -1,57 +1,51 @@
+// src/components/EventsTab.jsx
 import React, { useState, useEffect, useMemo } from 'react';
 import ItemList from './ItemList.jsx';
 import FilterBar from './FilterBar.jsx';
-import EventDetailModal from './EventDetailModal.jsx'; // Модалка для подій
-import { events as allEventsData } from '../data/eventsData.js';
+import EventDetailModal from './EventDetailModal.jsx';
 
-function EventsTab() {
-  const [displayedEvents, setDisplayedEvents] = useState(allEventsData);
+function EventsTab({ allItems, onToggleEventRegistration, currentUser }) {
+  const [displayedItems, setDisplayedItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  // Можна додати фільтр за датою або організатором
   const [selectedEventForModal, setSelectedEventForModal] = useState(null);
 
+  const eventsOnly = useMemo(() => 
+    allItems.filter(item => item.type === 'event'), 
+  [allItems]);
+  
   useEffect(() => {
-    let filteredEvents = allEventsData;
+    let filteredResult = eventsOnly;
     if (searchTerm.trim() !== '') {
       const lowercasedSearchTerm = searchTerm.toLowerCase();
-      filteredEvents = filteredEvents.filter(event => 
+      filteredResult = filteredResult.filter(event => 
         event.title.toLowerCase().includes(lowercasedSearchTerm) ||
         (event.organizer && event.organizer.toLowerCase().includes(lowercasedSearchTerm))
       );
     }
-    setDisplayedEvents(filteredEvents);
-  }, [searchTerm]);
+    setDisplayedItems(filteredResult);
+  }, [searchTerm, eventsOnly]);
 
   const handleShowDetails = (event) => setSelectedEventForModal(event);
   const handleCloseModal = () => setSelectedEventForModal(null);
 
-  const handleToggleRegistration = (eventId) => { // Функція для зміни статусу реєстрації
-     setDisplayedEvents(prevItems => 
-      prevItems.map(item => 
-        item.id === eventId 
-          ? { ...item, isRegistered: !item.isRegistered }
-          : item
-      )
-    );
-    // Аналогічно до техніки, для глобальної зміни статусу, логіку краще винести в App.jsx
-  };
-
+  // Опції фільтрів для подій
   const filterOptionsForEvents = {
     searchPlaceholder: "Пошук подій за назвою або організатором...",
-    // Тут можна додати фільтр за датою, якщо потрібно
+    // Тут можна додати інші фільтри для подій, якщо потрібно
   };
 
   return (
     <div className="tab-content events-tab">
+      <h2>Майбутні Події</h2>
       <FilterBar
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}
         filterOptions={filterOptionsForEvents}
       />
       <ItemList
-        items={displayedEvents.map(ev => ({ ...ev, type: 'event' }))}
+        items={displayedItems}
         onShowDetails={handleShowDetails}
-        onToggleRegistration={handleToggleRegistration} // Передаємо функцію
+        onToggleRegistration={onToggleEventRegistration}
       />
       {selectedEventForModal && (
         <EventDetailModal item={selectedEventForModal} onClose={handleCloseModal} />

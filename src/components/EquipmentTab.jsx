@@ -1,84 +1,60 @@
+// src/components/EquipmentTab.jsx
 import React, { useState, useEffect, useMemo } from 'react';
 import ItemList from './ItemList.jsx';
 import FilterBar from './FilterBar.jsx';
-import EquipmentDetailModal from './EquipmentDetailModal.jsx'; // Модалка для техніки
-import { equipment as allEquipmentData } from '../data/equipmentData.js';
+import EquipmentDetailModal from './EquipmentDetailModal.jsx';
 
-function EquipmentTab() {
-  const [displayedEquipment, setDisplayedEquipment] = useState(allEquipmentData);
+function EquipmentTab({ allItems, onToggleEquipmentAvailability, currentUser }) {
+  const [displayedItems, setDisplayedItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedAvailability, setSelectedAvailability] = useState('all'); // 'all', 'available', 'rented'
+  const [selectedAvailability, setSelectedAvailability] = useState('all');
   const [selectedEquipmentForModal, setSelectedEquipmentForModal] = useState(null);
 
-  // Можна додати отримання унікальних типів техніки, якщо потрібно буде фільтр за ними
-  const equipmentTypes = useMemo(() => {
-    const types = allEquipmentData
-        .filter(item => item.equipmentType)
-        .map(item => String(item.equipmentType));
-    return [...new Set(types)].sort();
-  }, []);
-
+  const equipmentOnly = useMemo(() => 
+    allItems.filter(item => item.type === 'equipment'), 
+  [allItems]);
 
   useEffect(() => {
-    let filteredEquipment = allEquipmentData;
-
+    let filteredResult = equipmentOnly;
     if (selectedAvailability !== 'all') {
-      filteredEquipment = filteredEquipment.filter(item => item.availabilityStatus === selectedAvailability);
+      filteredResult = filteredResult.filter(item => item.availabilityStatus === selectedAvailability);
     }
-
     if (searchTerm.trim() !== '') {
       const lowercasedSearchTerm = searchTerm.toLowerCase();
-      filteredEquipment = filteredEquipment.filter(item => 
+      filteredResult = filteredResult.filter(item => 
         item.title.toLowerCase().includes(lowercasedSearchTerm) ||
         (item.equipmentType && item.equipmentType.toLowerCase().includes(lowercasedSearchTerm))
       );
     }
-    setDisplayedEquipment(filteredEquipment);
-  }, [searchTerm, selectedAvailability]);
+    setDisplayedItems(filteredResult);
+  }, [searchTerm, selectedAvailability, equipmentOnly]);
 
   const handleShowDetails = (equipment) => setSelectedEquipmentForModal(equipment);
   const handleCloseModal = () => setSelectedEquipmentForModal(null);
 
-  const handleToggleAvailability = (itemId) => { // Функція для зміни статусу
-    setDisplayedEquipment(prevItems => 
-      prevItems.map(item => 
-        item.id === itemId 
-          ? { ...item, availabilityStatus: item.availabilityStatus === 'available' ? 'rented' : 'available' }
-          : item
-      )
-    );
-    // Важливо: також потрібно оновити allEquipmentData або мати єдиний masterList в App.jsx
-    // для персистентності змін між перемиканнями вкладок.
-    // Поки що це буде працювати тільки для displayedEquipment.
-    // Для глобальної зміни статусу, цю логіку краще винести в App.jsx
-  };
-
-
+  // Опції фільтрів для техніки
   const filterOptionsForEquipment = {
     searchPlaceholder: "Пошук техніки за назвою або типом...",
-    // Тут можна додати фільтр за equipmentType, якщо потрібно
-    // types: equipmentTypes.map(type => ({ value: type, label: type })), 
-    // selectedType: ..., (потрібен буде ще один стан)
-    // onTypeChange: ...,
-    availabilityOptions: [ // Опції для фільтра доступності
+    availabilityOptions: [
       { value: 'available', label: 'В наявності' },
       { value: 'rented', label: 'В оренді' }
     ],
     selectedAvailability: selectedAvailability,
-    onAvailabilityChange: setSelectedAvailability,
+    onAvailabilityChange: setSelectedAvailability, // Функція для зміни статусу доступності
   };
 
   return (
     <div className="tab-content equipment-tab">
+      <h2>Каталог Техніки</h2>
       <FilterBar
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}
         filterOptions={filterOptionsForEquipment}
       />
       <ItemList
-        items={displayedEquipment.map(eq => ({ ...eq, type: 'equipment' }))}
+        items={displayedItems}
         onShowDetails={handleShowDetails}
-        onToggleAvailability={handleToggleAvailability} // Передаємо функцію
+        onToggleAvailability={onToggleEquipmentAvailability}
       />
       {selectedEquipmentForModal && (
         <EquipmentDetailModal item={selectedEquipmentForModal} onClose={handleCloseModal} />

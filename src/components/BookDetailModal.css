@@ -1,119 +1,98 @@
-.modal-overlay {
-  position: fixed; /* Фіксоване положення відносно вікна браузера */
+/* src/components/BookDetailModal.css */
+
+.modal-backdrop {
+  position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.6); /* Напівпрозорий чорний фон */
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75); /* Зробимо фон трохи темнішим */
   display: flex;
-  align-items: center; /* Вирівнювання по центру вертикалі */
-  justify-content: center; /* Вирівнювання по центру горизонталі */
-  z-index: 1000; /* Має бути поверх іншого контенту */
-  padding: 20px; /* Відступи, щоб контент не прилягав до країв на малих екранах */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .modal-content {
-  background-color: #fff;
+  background-color: white;
   padding: 25px 30px;
   border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  position: relative; /* Для позиціонування кнопки закриття */
-  max-width: 700px; /* Максимальна ширина модального вікна */
-  width: 100%; /* Займає доступну ширину, але не більше max-width */
-  max-height: 90vh; /* Максимальна висота, щоб вміщалося на екрані */
-  overflow-y: auto; /* Додає скрол, якщо контент не вміщається по висоті */
-  animation: fadeInModal 0.3s ease-out;
-}
-
-@keyframes fadeInModal {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-
-.modal-close-button {
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  background: none;
-  border: none;
-  font-size: 2rem; /* Розмір "хрестика" */
-  color: #888;
-  cursor: pointer;
-  line-height: 1;
-  padding: 0;
-}
-
-.modal-close-button:hover {
-  color: #9c2626;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  min-width: 300px;
+  max-width: 700px; 
+  width: auto; /* Дозволимо ширині адаптуватися до контенту, але не більше max-width */
+  min-height: 200px; /* Мінімальна висота */
+  max-height: 90vh; 
+  overflow-y: auto;
+  position: relative; /* <--- ДУЖЕ ВАЖЛИВО для позиціонування хрестика */
+  text-align: left;
+  box-sizing: border-box;
 }
 
 .modal-content h2 {
   margin-top: 0;
   margin-bottom: 20px;
-  color: #007bff;
-  font-size: 1.8rem;
-  text-align: center;
+  padding-right: 30px; /* Додамо відступ справа, щоб текст не налізав на хрестик */
+  color: #333;
+  font-size: 1.7em;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+  word-break: break-word;
+  hyphens: auto;
 }
 
-.modal-body {
-  display: flex;
-  gap: 25px; /* Відстань між обкладинкою та інформацією */
+.modal-content img {
+  display: block;
+  max-width: 100%;
+  max-height: 280px; /* Трохи зменшив, щоб більше тексту влазило */
+  object-fit: contain;
+  height: auto;
+  margin: 0 auto 20px auto;
+  border-radius: 4px;
 }
 
-.modal-book-cover {
-  flex-shrink: 0; /* Щоб обкладинка не стискалася */
-  width: 180px;
-  height: auto; /* Висота автоматична для збереження пропорцій */
-  max-height: 270px; /* Обмеження максимальної висоти обкладинки */
-  object-fit: contain; /* Зберігає пропорції, вміщуючи все зображення */
-  border-radius: 6px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+.modal-content p {
+  margin-bottom: 12px;
+  line-height: 1.65;
+  color: #555;
+  word-break: break-word;
+  hyphens: auto;
 }
 
-.modal-book-info {
-  flex-grow: 1; /* Займає решту простору */
-  text-align: left;
-}
-
-.modal-book-info p {
-  margin-bottom: 10px;
-  line-height: 1.6;
-  font-size: 0.95rem;
-}
-
-.modal-book-info p strong {
+.modal-content p strong {
   color: #333;
 }
 
-.modal-book-description {
-  font-size: 0.9rem;
-  color: #555;
-  white-space: pre-wrap; /* Зберігає переноси рядків та пробіли з тексту опису */
+.modal-close-button-x {
+  position: absolute;   
+  top: 10px;            
+  right: 15px;           
+  background: none;
+  border: none;
+  font-family: Arial, sans-serif; 
+  font-size: 28px;        
+  font-weight: bold;
+  color: #777;           
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;         
+  transition: color 0.2s ease, transform 0.2s ease;
+  z-index: 10;            
 }
 
+.modal-close-button-x:hover {
+  color: #e74c3c;         
+  transform: rotate(90deg) scale(1.1); 
+}
 
-/* Адаптивність для модального вікна */
-@media (max-width: 768px) {
-  .modal-content {
-    max-width: 95%;
-    padding: 20px;
-  }
-  .modal-body {
-    flex-direction: column; /* Обкладинка над текстом на малих екранах */
-    align-items: center; /* Центруємо обкладинку */
-  }
-  .modal-book-cover {
-    margin-bottom: 20px;
-    width: 150px; /* Трохи менша обкладинка */
-  }
-  .modal-content h2 {
-    font-size: 1.5rem;
-  }
+/* Стилі для статусу (залишаються) */
+.item-status.status-available {
+  color: #27ae60;
+  font-weight: bold;
+}
+.item-status.status-rented {
+  color: #e74c3c;
+  font-weight: bold;
 }

@@ -7,7 +7,9 @@ export const books = [
     genre: "Поезія",
     year: 1840,
     description: "Фундаментальна збірка поетичних творів, що стала символом української літератури та національного пробудження. Вірші та поеми 'Кобзаря' охоплюють широкий спектр тем: від трагічної долі України до глибоких філософських роздумів про свободу, справедливість та людську гідність.",
-    coverImageUrl: "/images/kobzar.png" 
+    coverUrl: "/images/covers/kobzar.jpg",
+    isRentedByUser: false,
+    rating: Math.floor(Math.random() * 3) + 3 // Випадковий рейтинг від 3 до 5
   },
   {
     id: 2,
@@ -16,7 +18,9 @@ export const books = [
     genre: "Пригодницький роман",
     year: 1944,
     description: "Захопливий пригодницький роман про неймовірну втечу молодого українського інженера-авіатора Григорія Многогрішного з потяга-дракона НКВС, що везе його на каторгу. Його боротьба за виживання та свободу розгортається на тлі мальовничої, але небезпечної далекосхідної тайги.",
-    coverImageUrl: "/images/tygrolovy.jpg" 
+    coverUrl: "/images/covers/tygrolovy.jpg",
+    isRentedByUser: false,
+    rating: Math.floor(Math.random() * 3) + 3 // Випадковий рейтинг від 3 до 5
   },
   {
     id: 3,
@@ -25,7 +29,9 @@ export const books = [
     genre: "Історична повість",
     year: 1883,
     description: "Епічна історична повість, що змальовує героїчну боротьбу карпатської громади села Тухля проти монголо-татарської навали у XIII столітті. Твір оспівує єдність, мужність та любов до рідної землі, втілені в образі мудрого ватажка Захара Беркута.",
-    coverImageUrl: "/images/zakhar_berkut.jpg" 
+    coverUrl: "/images/covers/zakhar_berkut.jpg",
+    isRentedByUser: false,
+    rating: Math.floor(Math.random() * 3) + 3 // Випадковий рейтинг від 3 до 5
   },
   {
     id: 4,
@@ -34,7 +40,9 @@ export const books = [
     genre: "Драма-феєрія",
     year: 1911,
     description: "Поетична драма-феєрія, що є перлиною української модерної літератури. Це історія трагічного кохання лісової мавки Мавки та сільського хлопця Лукаша, яка розкриває конфлікт між світом природи, духовністю та прагматичним людським світом.",
-    coverImageUrl: "/images/lisova_pisnia.jpg"
+    coverUrl: "/images/covers/lisova_pisnia.jpg",
+    isRentedByUser: false,
+    rating: Math.floor(Math.random() * 3) + 3 // Випадковий рейтинг від 3 до 5
   },
   {
     id: 5,
@@ -43,7 +51,9 @@ export const books = [
     genre: "Історичний роман у віршах",
     year: 1979,
     description: "Видатний історичний роман у віршах, що розповідає про трагічну долю легендарної української піснярки та поетеси Марусі Чурай, яка жила в XVII столітті. Твір піднімає теми кохання, зради, історичної пам'яті та ролі митця в суспільстві.",
-    coverImageUrl: "/images/marusia-churai.png" 
+    coverUrl: "/images/covers/marusia-churai.jpg",
+    isRentedByUser: false,
+    rating: Math.floor(Math.random() * 3) + 3 // Випадковий рейтинг від 3 до 5
   },
   {
     id: 6,
@@ -52,7 +62,9 @@ export const books = [
     genre: "Новела",
     year: 1908,
     description: "Глибоко психологічна імпресіоністична новела, що передає стан митця, втомленого від міського шуму та людських страждань. Головний герой шукає відпочинку та відновлення сил на лоні природи, серед 'кононівських полів'.",
-    coverImageUrl: "/images/intermezzo.png"
+    coverUrl: "/images/covers/intermezzo.jpg",
+    isRentedByUser: false,
+    rating: Math.floor(Math.random() * 3) + 3 // Випадковий рейтинг від 3 до 5
   },
   {
     id: 7,
@@ -61,7 +73,9 @@ export const books = [
     genre: "Соціально-побутова повість",
     year: 1878,
     description: "Класична соціально-побутова повість, яка з гумором та реалізмом змальовує життя українського села після реформи 1861 року. У центрі твору – безкінечні сварки та суперечки в родині Кайдашів, що відображають типові проблеми тогочасного суспільства.",
-    coverImageUrl: "/images/kaidasheva.png"
+    coverUrl: "/images/covers/kaidasheva.jpg",
+    isRentedByUser: false,
+    rating: Math.floor(Math.random() * 3) + 3 // Випадковий рейтинг від 3 до 5
   },
   {
     id: 8,
@@ -70,7 +84,9 @@ export const books = [
     genre: "Комедія",
     year: 1929,
     description: "Сатирична комедія, що гостро висміює міщанство, комплекс меншовартості та намагання деяких українців зректися своєї національної ідентичності в добу українізації 20-х років XX століття. Головний герой, Мина Мазайло, прагне змінити своє 'плебейське' прізвище на більш 'благородне' російське.",
-    coverImageUrl: "/images/Mina-mazaylo.png" 
+    coverUrl: "/images/covers/Mina-mazaylo.jpg",
+    isRentedByUser: false,
+    rating: Math.floor(Math.random() * 3) + 3 // Випадковий рейтинг від 3 до 5
   },
   {
     id: 9,
@@ -79,7 +95,9 @@ export const books = [
     genre: "Роман",
     year: 1950,
     description: "Монументальний роман, що змальовує жахливу машину сталінських репресій та нелюдські випробування, через які проходить головний герой Андрій Чумак та інші в'язні. Твір є свідченням незламності людського духу та боротьби за правду.",
-    coverImageUrl: "/images/sad_getsimansky.jpg" 
+    coverUrl: "/images/covers/sad_getsimansky.jpg",
+    isRentedByUser: false,
+    rating: Math.floor(Math.random() * 3) + 3 // Випадковий рейтинг від 3 до 5
   },
   {
     id: 10,
@@ -88,7 +106,9 @@ export const books = [
     genre: "Літопис",
     year: 1113, // Приблизна дата першої редакції
     description: "Найдавніший відомий давньоруський літописний звід, що є безцінним джерелом з історії Східної Європи, зокрема Київської Русі. Оповідає про походження слов'ян, заснування Києва, діяльність князів та ключові події епохи.",
-    coverImageUrl: "/images/povist_lit.JPG" 
+    coverUrl: "/images/covers/povist_lit.jpg",
+    isRentedByUser: false,
+    rating: Math.floor(Math.random() * 3) + 3 // Випадковий рейтинг від 3 до 5
   },
   {
     id: 11,
@@ -97,7 +117,9 @@ export const books = [
     genre: "Історичний роман",
     year: 1857,
     description: "Перший історичний роман в українській літературі, що відтворює складні та драматичні події козацької ради 1663 року в Ніжині, де вирішувалася доля гетьманської влади та майбутнє України. Твір розкриває боротьбу різних політичних сил та соціальних груп.",
-    coverImageUrl: "/images/Chorna.png" 
+    coverUrl: "/images/covers/Chorna.jpg",
+    isRentedByUser: false,
+    rating: Math.floor(Math.random() * 3) + 3 // Випадковий рейтинг від 3 до 5
   },
   {
     id: 12,
@@ -106,7 +128,9 @@ export const books = [
     genre: "Поема",
     year: 1798,
     description: "Епохальна бурлескно-травестійна поема, що вважається першим твором нової української літератури, написаним народною мовою. Котляревський майстерно переніс сюжет Вергілієвої 'Енеїди' на український ґрунт, зобразивши мандри троянців на чолі з Енеєм у пошуках нової батьківщини, наповнивши твір яскравим гумором та колоритними образами.",
-    coverImageUrl: "/images/eneida.png"
+    coverUrl: "/images/covers/eneida.jpg",
+    isRentedByUser: false,
+    rating: Math.floor(Math.random() * 3) + 3 // Випадковий рейтинг від 3 до 5
   },
   {
     id: 13,
@@ -115,7 +139,9 @@ export const books = [
     genre: "Повість",
     year: 1911,
     description: "Поетична повість, що занурює читача у містичний світ гуцульських вірувань, традицій та легенд. Це історія трагічного кохання Івана та Марічки, двох представників ворогуючих родів, розказана з неймовірною ліричністю та глибоким розумінням душі карпатського народу.",
-    coverImageUrl: "/images/Tini_predkiv.png" 
+    coverUrl: "/images/covers/Tini_predkiv.jpg", 
+    isRentedByUser: false,
+    rating: Math.floor(Math.random() * 3) + 3 // Випадковий рейтинг від 3 до 5
   },
   {
     id: 14,
@@ -124,7 +150,9 @@ export const books = [
     genre: "Роман",
     year: 1968,
     description: "Проблемний роман, що викликав значний резонанс у радянському суспільстві. У центрі твору – старовинний козацький собор, який стає символом духовності, історичної пам'яті та боротьби проти бездуховності, кар'єризму та нищення культурної спадщини.",
-    coverImageUrl: "/images/sobor.png"
+    coverUrl: "/images/covers/sobor.jpg",
+    isRentedByUser: false,
+    rating: Math.floor(Math.random() * 3) + 3 // Випадковий рейтинг від 3 до 5
   },
   {
     id: 15,
@@ -133,7 +161,9 @@ export const books = [
     genre: "Новела",
     year: 1910,
     description: "Психологічно напружена новела, що досліджує екзистенційні питання життя, смерті та кохання. Історія короткої, але яскравої зустрічі революціонера та панночки під час нелегального перетину кордону, де кожен момент може стати останнім, а почуття загострюються до краю.",
-    coverImageUrl: "/images/moment.png"
+    coverUrl: "/images/covers/moment.jpg",
+    isRentedByUser: false,
+    rating: Math.floor(Math.random() * 3) + 3 // Випадковий рейтинг від 3 до 5
   },
   {
     id: 16,
@@ -142,7 +172,9 @@ export const books = [
     genre: "Драма",
     year: 1893,
     description: "Соціально-психологічна драма, що розкриває трагедію любовного трикутника в умовах патріархального сільського життя. Неможливість бути разом для закоханих Анни та Михайла, втручання обставин та людської жорстокості призводять до фатальних наслідків.",
-    coverImageUrl: "/images/Ukradene-shchastya.png" 
+    coverUrl: "/images/covers/Ukradene-shchastya.jpg", 
+    isRentedByUser: false,
+    rating: Math.floor(Math.random() * 3) + 3 // Випадковий рейтинг від 3 до 5
   },
   {
     id: 17,
@@ -151,7 +183,9 @@ export const books = [
     genre: "Поема",
     year: 1841,
     description: "Історико-героїчна романтична поема, присвячена Коліївщині – великому селянсько-козацькому повстанню 1768 року проти польсько-шляхетського панування в Правобережній Україні. Твір оспівує прагнення народу до волі та боротьбу за соціальну справедливість.",
-    coverImageUrl: "/images/gaidamaky.png"
+    coverUrl: "/images/covers/gaidamaky.jpg",
+    isRentedByUser: false,
+    rating: Math.floor(Math.random() * 3) + 3 // Випадковий рейтинг від 3 до 5
   },
   {
     id: 18,
@@ -160,7 +194,9 @@ export const books = [
     genre: "Повість", // (або роман-хроніка)
     year: 1910, // (друга частина)
     description: "Епічна повість (або роман-хроніка у двох частинах), що зображує життя українського села напередодні та під час революції 1905-1907 років. Автор показує пробудження соціальної свідомості селян, їхні надії на землю та волю, а також трагічні наслідки поразки революції.",
-    coverImageUrl: "/images/fata_morgana.png"
+    coverUrl: "/images/covers/fata_morgana.jpg",
+    isRentedByUser: false,
+    rating: Math.floor(Math.random() * 3) + 3 // Випадковий рейтинг від 3 до 5
   },
   {
     id: 19,
@@ -169,7 +205,9 @@ export const books = [
     genre: "Роман",
     year: 1900,
     description: "Соціально-психологічний роман, що змальовує життя української інтелігенції в Галичині наприкінці XIX століття. Головний герой, молодий адвокат Євгеній Рафалович, намагається боротися за права селян та протистояти корупції, але його шлях перетинається з особистими драмами та складними суспільними відносинами.",
-    coverImageUrl: "/images/stezhky.png"
+    coverUrl: "/images/covers/stezhky.jpg",
+    isRentedByUser: false,
+    rating: Math.floor(Math.random() * 3) + 3 // Випадковий рейтинг від 3 до 5
   },
   {
     id: 20,
@@ -178,7 +216,9 @@ export const books = [
     genre: "Роман", // (незавершений)
     year: 1927,
     description: "Незавершений роман, що відображає ідейні пошуки та розчарування української інтелігенції 20-х років XX століття. Головний герой, Дмитро Карамазов, намагається знайти своє місце в новій радянській дійсності, що призводить до внутрішнього конфлікту та трагічних роздумів.",
-    coverImageUrl: "/images/valdshnepy.png"
+    coverUrl: "/images/covers/valdshnepy.jpg",
+    isRentedByUser: false,
+    rating: Math.floor(Math.random() * 3) + 3 // Випадковий рейтинг від 3 до 5
   },
   {
     id: 21,
@@ -187,7 +227,9 @@ export const books = [
     genre: "Новела",
     year: 1924,
     description: "Експресіоністична новела, що є глибоким психологічним дослідженням роздвоєності особистості чекіста, який змушений приносити в жертву революційній ідеї власні людські почуття та навіть життя найближчих. Твір ставить питання про ціну революції та межі фанатизму.",
-    coverImageUrl: "/images/Ya_romantyka.png" 
+    coverUrl: "/images/covers/Ya_romantyka.jpg",
+    isRentedByUser: false,
+    rating: Math.floor(Math.random() * 3) + 3 // Випадковий рейтинг від 3 до 5
   },
   {
     id: 22,
@@ -196,7 +238,9 @@ export const books = [
     genre: "Урбаністичний роман",
     year: 1928,
     description: "Перший урбаністичний роман в українській літературі, що розповідає історію Степана Радченка, молодого сільського хлопця, який приїжджає до Києва з метою здобути освіту та підкорити місто. Твір показує його еволюцію, моральні компроміси та вплив міського середовища на особистість.",
-    coverImageUrl: "/images/misto.png"
+    coverUrl: "/images/covers/misto.jpg",
+    isRentedByUser: false,
+    rating: Math.floor(Math.random() * 3) + 3 // Випадковий рейтинг від 3 до 5
   },
   {
     id: 23,
@@ -205,7 +249,9 @@ export const books = [
     genre: "Сучасний роман",
     year: 2010,
     description: "Культовий роман сучасної української літератури. Герман повертається у рідне містечко на Донбасі, щоб захистити бізнес свого зниклого брата – стару бензоколонку. Це історія про пошук себе, про минуле, яке не відпускає, про дружбу, зраду та реалії пострадянського Сходу України.",
-    coverImageUrl: "/images/voroshilovgrad.png"
+    coverUrl: "/images/covers/voroshilovgrad.jpg",
+    isRentedByUser: false,
+    rating: Math.floor(Math.random() * 3) + 3 // Випадковий рейтинг від 3 до 5
   },
   {
     id: 24,
@@ -214,7 +260,9 @@ export const books = [
     genre: "Сучасний роман",
     year: 2017,
     description: "Пронизливий роман про війну на Сході України очима звичайного вчителя української мови Паші. Він вирушає у небезпечну подорож через лінію фронту, щоб забрати свого племінника з інтернату. Твір показує, як війна змінює людей та руйнує звичний світ.",
-    coverImageUrl: "/images/internat.png"
+    coverUrl: "/images/covers/internat.jpg",
+    isRentedByUser: false,
+    rating: Math.floor(Math.random() * 3) + 3 // Випадковий рейтинг від 3 до 5
   },
   {
     id: 25,
@@ -223,6 +271,8 @@ export const books = [
     genre: "Роман",
     year: 2010,
     description: "Перший прозовий роман видатної української поетеси. Це своєрідний щоденник 35-річного київського програміста, який рефлексує над абсурдністю сучасного світу, політичними подіями в Україні та світі, історією та власним життям на межі божевілля.",
-    coverImageUrl: "/images/zapysky_samashedshego.png" 
+    coverUrl: "/images/covers/zapysky_samashedshego.jpg", 
+    isRentedByUser: false,
+    rating: Math.floor(Math.random() * 3) + 3 // Випадковий рейтинг від 3 до 5
   }
 ];
